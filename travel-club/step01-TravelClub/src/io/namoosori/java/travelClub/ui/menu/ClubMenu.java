@@ -1,11 +1,15 @@
 package io.namoosori.java.travelClub.ui.menu;
 
+import io.namoosori.java.travelClub.ui.console.ClubConsole;
+
 import java.util.Scanner;
 
 public class ClubMenu {
     private Scanner scanner;
+    private ClubConsole console;
     public ClubMenu(){
         this.scanner = new Scanner(System.in);
+        this.console = new ClubConsole();
     }
 
     public void show(){
@@ -19,10 +23,10 @@ public class ClubMenu {
 
             switch (inputNumber) {
                 case 1:
-                    // console.register();
+                    console.register();
                     break;
                 case 2 :
-                    //
+                    console.findAll();
                     break;
                 case 3:
                     //
@@ -37,13 +41,13 @@ public class ClubMenu {
                     //
                     break;
                 case 0:
-                    //
                     return;
                 default:
                     System.out.println("Choose again!");
             }
         }
     }
+
     private void displayMenu() {
         System.out.println("................");
         System.out.println("Club Menu");
