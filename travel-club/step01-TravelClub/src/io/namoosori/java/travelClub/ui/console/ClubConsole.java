@@ -1,13 +1,18 @@
 package io.namoosori.java.travelClub.ui.console;
 
 import io.namoosori.java.travelClub.entity.TravelClub;
+import io.namoosori.java.travelClub.service.ClubService;
+import io.namoosori.java.travelClub.service.logic.ClubServiceLogic;
 import io.namoosori.java.travelClub.util.ConsoleUtil;
 
 public class ClubConsole {
     private ConsoleUtil consoleUtil;
+    private ClubService clubService;
 
     public ClubConsole() {
         this.consoleUtil = new ConsoleUtil();
+        // 이후 변경될 코드..
+        this.clubService = new ClubServiceLogic();
     }
     public void register(){
         while(true){
@@ -17,18 +22,27 @@ public class ClubConsole {
             }
 
             String intro = consoleUtil.getValueOf("Club Intro(0.Club Menu)");
-            if (clubName.equals("0")){
+            if (intro.equals("0")){
                 return;
             }
 
             TravelClub newClub = new TravelClub(clubName, intro);
-            // 배열에 저장
+            clubService.register(newClub);
             System.out.println("Registered club : " + newClub);
         }
     }
 
     public void findAll() {
-        System.out.println("Find All");
+        TravelClub[] foundClubs = clubService.findAll();
+
+        if (foundClubs.length == 0) {
+            System.out.println("Empty~~");
+            return;
+        }
+
+        for (TravelClub club: foundClubs) {
+            System.out.println(club.toString());
+        }
     }
 
     public void findById(){

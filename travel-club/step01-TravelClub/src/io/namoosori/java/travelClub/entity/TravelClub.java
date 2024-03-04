@@ -36,7 +36,7 @@ public class TravelClub {
 
     public void setIntro(String intro){
         if(intro.length() < MINIMUM_INTRO_LENGTH) {
-            System.out.println("Inrto should be longer then " + MINIMUM_INTRO_LENGTH);
+            System.out.println("Intro should be longer then " + MINIMUM_INTRO_LENGTH);
             return ;
         }
         this.intro = intro;
