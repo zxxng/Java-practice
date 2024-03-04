@@ -2,6 +2,7 @@ package io.namoosori.java.travelClub.ui.console;
 
 import io.namoosori.java.travelClub.entity.TravelClub;
 import io.namoosori.java.travelClub.service.ClubService;
+import io.namoosori.java.travelClub.service.ServiceLogicLifeCycler;
 import io.namoosori.java.travelClub.service.logic.ClubServiceLogic;
 import io.namoosori.java.travelClub.util.ConsoleUtil;
 
@@ -11,8 +12,7 @@ public class ClubConsole {
 
     public ClubConsole() {
         this.consoleUtil = new ConsoleUtil();
-        // 이후 변경될 코드..
-        this.clubService = new ClubServiceLogic();
+        this.clubService = ServiceLogicLifeCycler.getUniqueInstance().getClubService();
     }
     public void register(){
         while(true){
