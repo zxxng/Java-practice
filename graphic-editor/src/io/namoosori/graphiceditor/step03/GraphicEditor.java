@@ -24,4 +24,6 @@ public class GraphicEditor {
             shape.draw();
         }
     }
+
+
 }
