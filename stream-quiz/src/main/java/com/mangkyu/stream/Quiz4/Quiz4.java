@@ -3,11 +3,19 @@ package com.mangkyu.stream.Quiz4;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Quiz4 {
 
     private List<Transaction> transactions;
+
+    public static void main(String[] args) {
+        Quiz4 quiz4 = new Quiz4();
+        System.out.println(quiz4.quiz4());
+        System.out.println(quiz4.quiz5());
+    }
 
     public Quiz4() {
         Trader kyu = new Trader("Kyu", "Seoul");
@@ -27,32 +35,54 @@ public class Quiz4 {
 
     // 4.1 2020년에 일어난 모든 거래 내역을 찾아 거래값을 기준으로 오름차순 정렬하라.
     public List<Transaction> quiz1() {
-        return Collections.emptyList();
+        return transactions.stream()
+                .filter(e->e.getYear() == 2020)
+                .sorted(Comparator.comparing(Transaction::getValue))
+                .collect(Collectors.toList());
+
     }
 
     // 4.2 거래 내역이 있는 거래자가 근무하는 모든 도시를 중복 없이 나열하라.
     public List<String> quiz2() {
-        return Collections.emptyList();
+        return transactions.stream()
+                .map(e -> e.getTrader().getCity())
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     // 4.3 서울에서 근무하는 모든 거래자를 찾아서 이름순서대로 정렬하라.
     public List<Trader> quiz3() {
-        return Collections.emptyList();
+        return transactions.stream()
+                .map(Transaction::getTrader)
+                .distinct()
+                .filter(e -> e.getCity().equals("Seoul"))
+                .sorted(Comparator.comparing(Trader::getName))
+                .collect(Collectors.toList());
     }
 
     // 4.4 모든 거래자의 이름을 구분자(",")로 구분하여 정렬하라.
     public String quiz4() {
-        return null;
+        return transactions.stream()
+                .map(Transaction::getTrader)
+                .distinct()
+                .map(Trader::getName)
+                .collect(Collectors.joining(", "));
     }
 
     // 4.5 부산에 거래자가 있는지를 확인하라.
     public boolean quiz5() {
-        return false;
+        return transactions.stream()
+                .map(e -> e.getTrader().getCity())
+                // false
+                .allMatch(e -> e.length() != 0);
     }
 
     // 4.6 서울에 거주하는 거래자의 모든 거래 금액을 구하라.
     public List<Integer> quiz6() {
-        return Collections.emptyList();
+        return transactions.stream()
+                .filter(e -> e.getTrader().getCity().equals("Seoul"))
+                .map(Transaction::getValue)
+                .collect(Collectors.toList());
     }
 
     // 4.7 모든 거래 내역중에서 거래 금액의 최댓값과 최솟값을 구하라. 단, 최댓값은 reduce를 이용하고 최솟값은 stream의 min()을 이용하라.
